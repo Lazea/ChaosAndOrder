@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MenuBehavior : MonoBehaviour {
 
+    GameObject canvas;
     GameObject mainMenu;
     GameObject pauseMenu;
     GameObject creditsMenu;
@@ -12,9 +13,15 @@ public class MenuBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        canvas = GameObject.Find("Canvas");
         mainMenu = GameObject.Find("MainMenuPanel");
         pauseMenu = GameObject.Find("PausePanel");
         creditsMenu = GameObject.Find("CreditsPanel");
+
+        if (canvas != null)
+        {
+            canvas.SetActive(true);
+        }
 
         if (mainMenu != null)
         {
