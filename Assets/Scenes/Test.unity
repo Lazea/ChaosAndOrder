@@ -108,6 +108,11 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &261401229 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4116438806335302, guid: 4d9ac88e141169f4e9b059c915b015f1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1000004140}
 --- !u!1 &350912762
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,8 +769,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 974330799}
   m_LocalRotation: {x: -0, y: -0, z: 0.19509031, w: 0.98078537}
-  m_LocalPosition: {x: 1.538, y: -1.24, z: 0}
-  m_LocalScale: {x: 3, y: 0.5000001, z: 1}
+  m_LocalPosition: {x: 1.538, y: -0.613, z: 0}
+  m_LocalScale: {x: 5.8938107, y: 0.5000001, z: 1}
   m_Children: []
   m_Father: {fileID: 350912763}
   m_RootOrder: 1
@@ -860,16 +865,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 136213837248429328, guid: 4d9ac88e141169f4e9b059c915b015f1,
-        type: 2}
-      propertyPath: m_Height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 136213837248429328, guid: 4d9ac88e141169f4e9b059c915b015f1,
-        type: 2}
-      propertyPath: m_Center.y
-      value: 0.025
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d9ac88e141169f4e9b059c915b015f1, type: 2}
   m_IsPrefabParent: 0
@@ -885,6 +880,7 @@ GameObject:
   - component: {fileID: 1200550879}
   - component: {fileID: 1200550878}
   - component: {fileID: 1200550877}
+  - component: {fileID: 1200550882}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -962,6 +958,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1200550882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1200550876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ebe74c6c67e8cc4d9cbb8d8062c7efb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 261401229}
+  followRate: 0.25
 --- !u!1 &1301690767
 GameObject:
   m_ObjectHideFlags: 0
