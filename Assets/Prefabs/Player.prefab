@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd0f7324f1e5694297acb2645bd1592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
+  walkSpeed: 4
   grounded: 0
   terminalFallSpeed: -5
   jumpPower: 5

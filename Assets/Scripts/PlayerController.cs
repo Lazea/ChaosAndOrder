@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    // Movement
     public float walkSpeed = 5f;
     float moveSpeed;
 
-    public bool grounded = false;
-    float g = -9.81f;
+    // Grounded checks
+    bool grounded = false;
+    float g = -9f;
     float verticalSpeed;
-    public float terminalFallSpeed;
+    float terminalFallSpeed = -6f;
 
+    // Jumping
     public float jumpPower;
     bool jumping = false;
 
-    public bool blocking;
+    // Blocking
+    bool blocking;
 
+    // Player stats
+    public int maxHealth = 100;
+    int health;
+
+    // Components and transforms
     Transform cameratarget;
     float cameratargetHeight;
 
@@ -24,10 +33,12 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        health = maxHealth;
+
         cameratarget = transform.Find("CameraTarget");
 
         cc = gameObject.GetComponent<CharacterController>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -97,5 +108,36 @@ public class PlayerController : MonoBehaviour {
         // Apply movement
         cc.Move(transform.right * h * moveSpeed * Time.deltaTime);
         cc.Move(transform.up * verticalSpeed * Time.deltaTime);
+    }
+
+    public void DamagePlayer(int damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            Death();
+        }
+    }
+
+    void Heal(int healthPoints)
+    {
+        health += healthPoints;
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+    }
+
+    void Death()
+    {
+        // Play death animation
+
+        // Display game over screen
+    }
+
+    public int GetHealth()
+    {
+        return health;
     }
 }
