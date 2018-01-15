@@ -29,14 +29,23 @@ public class PlayerController : MonoBehaviour {
     Transform cameratarget;
     float cameratargetHeight;
 
+    Animator animator;
     CharacterController cc;
 
-	// Use this for initialization
-	void Start () {
+
+
+    public bool bwalk;
+    public bool bjump;
+    public bool bfall;
+    public bool bswitch;
+
+    // Use this for initialization
+    void Start () {
         health = maxHealth;
 
         cameratarget = transform.Find("CameraTarget");
 
+        animator = transform.Find("PlayerSprites").gameObject.GetComponent<Animator>();
         cc = gameObject.GetComponent<CharacterController>();
     }
 	
@@ -46,6 +55,7 @@ public class PlayerController : MonoBehaviour {
         float h = Input.GetAxis("Horizontal");
         bool jump = Input.GetKeyDown(KeyCode.Space);
         bool block = Input.GetKey(KeyCode.LeftShift);
+        bool weaponSwitch = Input.GetKeyDown(KeyCode.Q);
 
         // Flip Character in direction of motion
         Vector3 playerScale = transform.localScale;
@@ -61,16 +71,14 @@ public class PlayerController : MonoBehaviour {
 
         // Ground check
         RaycastHit hit;
-        if(Physics.SphereCast(transform.position, 0.14f, Vector3.down, out hit, 0.4f))
+        if(Physics.SphereCast(transform.position, 0.14f, Vector3.down, out hit, 0.2f))
         {
             grounded = true;
-            jumping = false;
         } else
         {
-            if (grounded && !jumping)
+            if (grounded)
             {
                 verticalSpeed = 0f;
-                jumping = false;
             }
 
             grounded = false;
@@ -86,6 +94,7 @@ public class PlayerController : MonoBehaviour {
         // Character movement and control flow
         if (grounded)
         {
+            jumping = false;
             if (block)
             {
                 moveSpeed = 0;
@@ -100,6 +109,7 @@ public class PlayerController : MonoBehaviour {
             }
             else
             {
+                jumping = false;
                 moveSpeed = walkSpeed;
                 blocking = false;
             }
@@ -108,6 +118,27 @@ public class PlayerController : MonoBehaviour {
         // Apply movement
         cc.Move(transform.right * h * moveSpeed * Time.deltaTime);
         cc.Move(transform.up * verticalSpeed * Time.deltaTime);
+
+        // Animation update
+        if (Mathf.Abs(h) > 0)
+        {
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            animator.SetBool("Walk", false);
+        }
+
+        animator.SetBool("Fall", !grounded);
+        animator.SetBool("Jump", jumping);
+        animator.SetBool("Block", blocking);
+        animator.SetBool("Switch", weaponSwitch);
+
+
+        bwalk = animator.GetBool("Walk");
+        bjump = animator.GetBool("Jump");
+        bfall = animator.GetBool("Fall");
+        bswitch = animator.GetBool("Switch");
     }
 
     public void DamagePlayer(int damage)
@@ -127,17 +158,19 @@ public class PlayerController : MonoBehaviour {
         {
             health = maxHealth;
         }
+
+        animator.SetInteger("Health", health);
     }
 
     void Death()
     {
-        // Play death animation
-
         // Display game over screen
     }
 
     public int GetHealth()
     {
         return health;
+
+        animator.SetInteger("Health", health);
     }
 }
