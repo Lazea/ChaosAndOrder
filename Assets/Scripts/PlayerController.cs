@@ -20,10 +20,13 @@ public class PlayerController : MonoBehaviour {
 
     // Blocking
     bool blocking;
+    public bool dash;
+    public bool dashReady = true;
 
     // Player stats
     public int maxHealth = 100;
     int health;
+    bool hit;
 
     // Components and transforms
     Transform cameratarget;
@@ -91,14 +94,18 @@ public class PlayerController : MonoBehaviour {
             verticalSpeed = terminalFallSpeed;
         }
 
+        animator.SetBool("Dash", false);
         // Character movement and control flow
         if (grounded)
         {
+
             jumping = false;
             if (block)
             {
                 moveSpeed = 0;
                 blocking = true;
+
+                // Dash logic
             }
             else if (jump)
             {
@@ -149,6 +156,9 @@ public class PlayerController : MonoBehaviour {
         {
             Death();
         }
+
+        hit = true;
+        animator.SetBool("Hit", true);
     }
 
     void Heal(int healthPoints)
